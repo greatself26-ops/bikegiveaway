@@ -1,324 +1,472 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Bike Giveaway Fundraiser</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Essential Services Booking</title>
+  <style>
+    :root {
+      --bg: #0f172a;
+      --panel: #111827;
+      --card: #1f2937;
+      --accent: #22d3ee;
+      --accent-2: #38bdf8;
+      --text: #f8fafc;
+      --muted: #cbd5f5;
+    }
 
-<style>
-:root {
-  --primary:#00ffcc;
-  --bg:#020617;
-  --card:#111827;
-}
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: "Segoe UI", system-ui, sans-serif;
+    }
 
-*{box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;}
-html{scroll-behavior:smooth;}
-body{margin:0;background:radial-gradient(circle at top,#020617,#000);color:white;}
+    body {
+      background: radial-gradient(circle at top, #1e293b, #020617);
+      color: var(--text);
+      min-height: 100vh;
+    }
 
-/* ===== IMAGE HOLDER (LOGO + PROFILE) ===== */
-.image-holder{
-  width:140px;
-  height:140px;
-  border-radius:50%;
-  border:2px dashed var(--primary);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  color:var(--primary);
-  font-weight:bold;
-  position:relative;
-  overflow:hidden;
-}
-.image-holder img{
-  width:100%;
-  height:100%;
-  object-fit:cover;
-  position:absolute;
-  inset:0;
-  background:#020617;
-}
+    header {
+      padding: 32px 20px 10px;
+      text-align: center;
+    }
 
-/* ===== HEADER ===== */
-header{text-align:center;padding:30px;}
-.logo-holder{margin:auto;animation:float 4s ease-in-out infinite;}
-@keyframes float{50%{transform:translateY(-8px);}}
+    header h1 {
+      font-size: clamp(1.8rem, 2.5vw, 2.6rem);
+      margin-bottom: 10px;
+    }
 
-/* ===== BANNER ===== */
-.banner{margin-top:20px;overflow:hidden;background:linear-gradient(90deg,#00ffcc,#22d3ee);}
-.banner-text{
-  white-space:nowrap;
-  padding:12px 0;
-  font-weight:bold;
-  color:#020617;
-  animation:scroll 15s linear infinite;
-}
-@keyframes scroll{from{transform:translateX(100%);}to{transform:translateX(-100%);}}
+    header p {
+      color: var(--muted);
+      max-width: 760px;
+      margin: 0 auto;
+    }
 
-/* ===== COUNTDOWN ===== */
-.countdown{
-  margin-top:10px;
-  font-weight:bold;
-  color:var(--primary);
-  animation:pulse 1.5s infinite;
-}
-@keyframes pulse{50%{transform:scale(1.05);}}
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 30px 20px 60px;
+      display: grid;
+      gap: 24px;
+    }
 
-/* ===== PROFILE ===== */
-.profile-story{
-  max-width:1000px;
-  margin:40px auto;
-  display:flex;
-  gap:20px;
-  padding:0 20px;
-}
-.story{
-  background:#020617;
-  border:1px solid #334155;
-  border-radius:12px;
-  padding:16px;
-}
+    .panel {
+      background: var(--panel);
+      border-radius: 20px;
+      padding: 24px;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.35);
+      border: 1px solid rgba(148, 163, 184, 0.2);
+    }
 
-/* ===== PROGRESS ===== */
-.progress-section{max-width:800px;margin:auto;padding:20px;}
-.progress-text{text-align:center;font-weight:bold;}
-.progress-bar{background:#1f2933;border-radius:20px;overflow:hidden;}
-.progress-fill{height:20px;background:linear-gradient(90deg,#00ffcc,#22d3ee);transition:width .6s;}
+    .panel h2 {
+      margin-bottom: 12px;
+      font-size: 1.4rem;
+    }
 
-/* ===== DONATE ===== */
-.razorpay-wrapper{
-  margin:40px auto;
-  width:260px;
-  padding:20px;
-  border-radius:16px;
-  text-align:center;
-  box-shadow:0 0 60px var(--primary);
-  animation:glow 2s infinite;
-}
-@keyframes glow{50%{box-shadow:0 0 90px var(--primary);}}
+    .panel p {
+      color: var(--muted);
+      margin-bottom: 20px;
+    }
 
-/* ===== MAIN ===== */
-.main{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:20px;padding:20px;}
-.card{
-  background:var(--card);
-  border-radius:16px;
-  padding:16px;
-  transition:transform .3s;
-}
-.card:hover{transform:translateY(-10px);}
+    .login-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 16px;
+    }
 
-.image-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;}
-.image-box{
-  width:100%;
-  height:150px;
-  object-fit:cover;
-  border-radius:10px;
-  cursor:pointer;
-  transition:transform .4s;
-}
-.image-box:hover{transform:scale(1.08);}
+    label {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      font-size: 0.9rem;
+      color: var(--muted);
+    }
 
-/* ===== FOOTER ===== */
-.footer-actions{display:flex;justify-content:space-around;padding:30px;}
-.footer-actions button{
-  background:var(--primary);
-  border:none;
-  padding:12px 20px;
-  border-radius:12px;
-  font-weight:bold;
-  cursor:pointer;
-}
+    input,
+    select,
+    textarea {
+      background: #0b1220;
+      color: var(--text);
+      border: 1px solid rgba(148, 163, 184, 0.3);
+      border-radius: 12px;
+      padding: 12px 14px;
+    }
 
-/* ===== TERMS ===== */
-.terms{
-  max-width:1000px;
-  margin:50px auto;
-  padding:20px;
-  border-top:1px solid #334155;
-  opacity:.8;
-}
+    input:focus,
+    select:focus,
+    textarea:focus {
+      outline: 2px solid rgba(56, 189, 248, 0.6);
+      border-color: var(--accent);
+    }
 
-/* ===== MODAL ===== */
-.modal{
-  position:fixed;
-  inset:0;
-  background:rgba(0,0,0,.95);
-  display:none;
-  align-items:center;
-  justify-content:center;
-  z-index:9999;
-}
-.modal img{max-width:95%;max-height:95%;}
-.modal-close{position:absolute;top:20px;right:25px;font-size:36px;cursor:pointer;}
+    button {
+      background: linear-gradient(120deg, var(--accent), var(--accent-2));
+      border: none;
+      color: #0f172a;
+      padding: 12px 20px;
+      border-radius: 999px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
 
-/* ===== FIREWORKS ===== */
-.fireworks{position:fixed;inset:0;pointer-events:none;z-index:9998;}
-.confetti{
-  position:absolute;
-  width:10px;height:10px;
-  animation:fall 3s linear forwards;
-}
-@keyframes fall{to{transform:translateY(100vh) rotate(720deg);opacity:0;}}
+    button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 24px rgba(34, 211, 238, 0.35);
+    }
 
-/* ADMIN */
-.admin-btn{position:fixed;bottom:10px;right:10px;width:30px;height:30px;opacity:0;}
-</style>
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 16px;
+    }
+
+    .pill {
+      display: inline-flex;
+      gap: 10px;
+      align-items: center;
+      padding: 8px 16px;
+      border-radius: 999px;
+      background: rgba(56, 189, 248, 0.15);
+      color: var(--accent);
+      font-size: 0.85rem;
+    }
+
+    .services-header {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 20px;
+    }
+
+    .toggle {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    .service-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 18px;
+    }
+
+    .service-grid.align-center {
+      justify-items: center;
+    }
+
+    .service-card {
+      background: var(--card);
+      padding: 18px;
+      border-radius: 18px;
+      border: 1px solid rgba(148, 163, 184, 0.2);
+      position: relative;
+      overflow: hidden;
+      animation: float 3.2s ease-in-out infinite;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .service-card:nth-child(even) {
+      animation-delay: 0.4s;
+    }
+
+    .service-card::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at top, rgba(56, 189, 248, 0.2), transparent 65%);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .service-card:hover {
+      transform: translateY(-8px) scale(1.01);
+      box-shadow: 0 20px 40px rgba(15, 23, 42, 0.5);
+    }
+
+    .service-card:hover::after {
+      opacity: 1;
+    }
+
+    .service-card h3 {
+      margin-bottom: 8px;
+      font-size: 1.1rem;
+    }
+
+    .service-card p {
+      color: var(--muted);
+      font-size: 0.95rem;
+      margin-bottom: 16px;
+    }
+
+    .badge {
+      display: inline-flex;
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: rgba(56, 189, 248, 0.18);
+      color: var(--accent);
+      font-size: 0.75rem;
+      margin-bottom: 12px;
+    }
+
+    .reminder-panel {
+      display: grid;
+      gap: 12px;
+    }
+
+    .razorpay-wrapper {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+      margin-top: 20px;
+      padding: 18px;
+      border-radius: 18px;
+      background: rgba(56, 189, 248, 0.08);
+      border: 1px solid rgba(148, 163, 184, 0.15);
+    }
+
+    .razorpay-wrapper p {
+      color: var(--muted);
+      flex: 1 1 240px;
+    }
+
+    .status {
+      margin-top: 12px;
+      font-size: 0.9rem;
+      color: var(--accent);
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    @keyframes float {
+      50% {
+        transform: translateY(-6px);
+      }
+    }
+
+    @media (max-width: 768px) {
+      .services-header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+  </style>
 </head>
-
 <body>
+  <header>
+    <h1>Essential Services Booking for Apartments & Townships</h1>
+    <p>
+      Secure resident login, auto location capture, animated service cards, and seamless payments in one place.
+    </p>
+  </header>
 
-<header>
-  <!-- LOGO HOLDER -->
-  <div class="image-holder logo-holder">
-    LOGO
-    <img src="./images/logo.jpg" alt="">
-  </div>
+  <main class="container">
+    <section class="panel" id="loginPanel">
+      <h2>Resident Login</h2>
+      <p>Log in to request a service. Details are saved to a connected Google Sheet for admin tracking.</p>
+      <form id="loginForm">
+        <div class="login-grid">
+          <label>
+            Full Name
+            <input type="text" id="fullName" placeholder="Enter your name" required>
+          </label>
+          <label>
+            Phone Number
+            <input type="tel" id="phone" placeholder="+91 90000 00000" required>
+          </label>
+          <label>
+            Apartment / Township
+            <input type="text" id="property" placeholder="Sunrise Residency" required>
+          </label>
+          <label>
+            Location PIN
+            <input type="text" id="pin" placeholder="PIN code" required>
+          </label>
+          <label>
+            Auto-capture Location
+            <input type="text" id="location" placeholder="Tap to auto-fill" readonly>
+          </label>
+          <label>
+            Preferred Login ID
+            <input type="email" id="email" placeholder="email@domain.com" required>
+          </label>
+        </div>
+        <div class="actions">
+          <button type="button" id="captureLocation">Capture Location</button>
+          <button type="submit">Login & Save to Sheet</button>
+        </div>
+        <div class="status" id="loginStatus"></div>
+      </form>
+    </section>
 
-  <div class="banner">
-    <div class="banner-text">
-      💥 Donate ₹600 and stand a chance to own R15 V3 2022 💥 Gateway closes by 5/01/2026 , 12:00PM 💥
-    </div>
-  </div>
+    <section class="panel hidden" id="servicesPanel">
+      <div class="services-header">
+        <div>
+          <h2>Book Essential Services</h2>
+          <p>Pick a service and notify the admin or staff instantly.</p>
+        </div>
+        <label class="toggle">
+          <input type="checkbox" id="alignToggle" checked>
+          Auto-align service cards
+        </label>
+      </div>
 
-  <div class="countdown" id="countdown"></div>
-</header>
+      <div class="service-grid align-center" id="serviceGrid">
+        <article class="service-card">
+          <span class="badge">Most Requested</span>
+          <h3>Electrician Support</h3>
+          <p>Fan, light, and power fixes inside your apartment within 90 minutes.</p>
+          <button type="button" data-service="Electrician Support">Select Service</button>
+        </article>
+        <article class="service-card">
+          <span class="badge">Quick Response</span>
+          <h3>Plumbing Assistance</h3>
+          <p>Tap leaks, pipeline issues, and bathroom maintenance with assured staff updates.</p>
+          <button type="button" data-service="Plumbing Assistance">Select Service</button>
+        </article>
+        <article class="service-card">
+          <span class="badge">Daily Care</span>
+          <h3>Housekeeping</h3>
+          <p>Verified cleaners for deep cleaning, sweeping, and sanitization routines.</p>
+          <button type="button" data-service="Housekeeping">Select Service</button>
+        </article>
+        <article class="service-card">
+          <span class="badge">Security</span>
+          <h3>Security Patrol</h3>
+          <p>Request additional patrols, visitor verification, or emergency checks.</p>
+          <button type="button" data-service="Security Patrol">Select Service</button>
+        </article>
+        <article class="service-card">
+          <span class="badge">Maintenance</span>
+          <h3>AC &amp; Appliance</h3>
+          <p>Scheduled servicing for AC, refrigerator, washing machine, or geyser.</p>
+          <button type="button" data-service="AC & Appliance">Select Service</button>
+        </article>
+      </div>
 
-<section class="profile-story">
-  
-  <div class="story">
-    ❤️ My Bike, Your Kindness, Our Story<br>
+      <div class="razorpay-wrapper">
+        <p>
+          Collect service fees instantly using Razorpay. The button below can be configured with your
+          payment button ID.
+        </p>
+        <form>
+          <script src="https://checkout.razorpay.com/v1/payment-button.js"
+            data-payment_button_id="pl_Rz2RgDJy6FSsOo" async></script>
+        </form>
+      </div>
 
-This bike has been part of my everyday life — my early mornings, late nights, and quiet rides when life felt heavy.
-Giving it away isn’t easy.<br>
+      <div class="panel reminder-panel" style="margin-top: 24px;">
+        <h2>Send Service Reminder</h2>
+        <p>Share booking details with admin/staff via WhatsApp or email.</p>
+        <textarea id="reminderMessage" rows="3" placeholder="Select a service to auto-fill reminder..."></textarea>
+        <div class="actions">
+          <button type="button" id="notifyWhatsApp">Notify via WhatsApp</button>
+          <button type="button" id="notifyEmail">Notify via Email</button>
+        </div>
+        <div class="status" id="reminderStatus"></div>
+      </div>
+    </section>
+  </main>
 
-But sometimes, letting go of something you love is the only way to move forward and support something that truly matters.<br>
+  <script>
+    const loginForm = document.getElementById("loginForm");
+    const loginStatus = document.getElementById("loginStatus");
+    const servicesPanel = document.getElementById("servicesPanel");
+    const captureLocation = document.getElementById("captureLocation");
+    const locationField = document.getElementById("location");
+    const alignToggle = document.getElementById("alignToggle");
+    const serviceGrid = document.getElementById("serviceGrid");
+    const reminderMessage = document.getElementById("reminderMessage");
+    const reminderStatus = document.getElementById("reminderStatus");
 
-By donating ₹600, you’re not just standing a chance to own this bike —
-you’re helping me take the next step in a journey that needs support and kindness. <br>
+    const sheetEndpoint = "https://script.google.com/macros/s/YOUR_SHEET_WEBAPP/exec";
 
-If the bike becomes yours, that’s amazing.
-If not, please know this — your support still means more than you can imagine.<br>
+    captureLocation.addEventListener("click", () => {
+      if (!navigator.geolocation) {
+        locationField.value = "Geolocation not supported";
+        return;
+      }
+      locationField.value = "Capturing location...";
+      navigator.geolocation.getCurrentPosition(
+        (pos) => {
+          const { latitude, longitude } = pos.coords;
+          locationField.value = `Lat ${latitude.toFixed(4)}, Lng ${longitude.toFixed(4)}`;
+        },
+        () => {
+          locationField.value = "Permission denied. Enter manually.";
+        }
+      );
+    });
 
-Thank you for being part of this ❤️
-  </div>
-</section>
+    loginForm.addEventListener("submit", async (event) => {
+      event.preventDefault();
+      loginStatus.textContent = "Saving to Google Sheets...";
 
-<section class="progress-section">
-  <div class="progress-text" id="progressText"></div>
-  <div class="progress-bar">
-    <div class="progress-fill" id="progressFill"></div>
-  </div>
-</section>
+      const payload = {
+        name: document.getElementById("fullName").value,
+        phone: document.getElementById("phone").value,
+        property: document.getElementById("property").value,
+        pin: document.getElementById("pin").value,
+        location: locationField.value,
+        email: document.getElementById("email").value,
+      };
 
-<div class="razorpay-wrapper">
-  <form>
-    <script src="https://checkout.razorpay.com/v1/payment-button.js"
-      data-payment_button_id="pl_Rz2RgDJy6FSsOo" async></script>
-  </form>
-</div>
+      try {
+        await fetch(sheetEndpoint, {
+          method: "POST",
+          mode: "no-cors",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload),
+        });
+        loginStatus.textContent = "Login saved. You can now book services.";
+        servicesPanel.classList.remove("hidden");
+        servicesPanel.scrollIntoView({ behavior: "smooth" });
+      } catch (error) {
+        loginStatus.textContent = "Unable to reach Google Sheets. Please try again.";
+      }
+    });
 
-<section class="main">
-  <div class="card">
-    <h2>Current Giveaway</h2>
-    <div class="image-grid">
-      <img src="./images/bike1.jpeg" class="image-box">
-      <img src="./images/bike2.jpeg" class="image-box">
-      <img src="./images/bike3.jpeg" class="image-box">
-      <img src="./images/bike4.jpeg" class="image-box">
-    </div>
-    <div class="description">Yamaha R15 V3 – 2022</div>
-  </div>
+    alignToggle.addEventListener("change", (event) => {
+      serviceGrid.classList.toggle("align-center", event.target.checked);
+    });
 
-  <div class="card">
-    <h2>Upcoming Giveaway</h2>
-    <div class="image-grid">
-      <img src="./images/car1.jpg" class="image-box">
-      <img src="./images/car2.jpg" class="image-box">
-      <img src="./images/car3.jpg" class="image-box">
-      <img src="./images/car4.jpg" class="image-box">
-    </div>
-    <div class="description">Coming soon</div>
-  </div>
-</section>
+    document.querySelectorAll(".service-card button").forEach((button) => {
+      button.addEventListener("click", () => {
+        const service = button.dataset.service;
+        reminderMessage.value = `Service booked: ${service}. Please assign staff and confirm ETA.`;
+        reminderStatus.textContent = `Reminder ready for ${service}.`;
+      });
+    });
 
-<div class="footer-actions">
-  <button onclick="openWhatsApp()">WhatsApp</button>
-  <button onclick="openWebsite()">Website</button>
-  <button onclick="shareSite()">Share</button>
-</div>
+    document.getElementById("notifyWhatsApp").addEventListener("click", () => {
+      if (!reminderMessage.value) {
+        reminderStatus.textContent = "Select a service to generate a reminder.";
+        return;
+      }
+      const message = encodeURIComponent(reminderMessage.value);
+      window.open(`https://wa.me/919999999999?text=${message}`, "_blank");
+      reminderStatus.textContent = "WhatsApp reminder opened.";
+    });
 
-<section class="terms">
-  <h2>Terms</h2>
-  • Organizer decision final<br>
-  • Fair & Transparent Participation <br>
-       This giveaway is conducted in a fair, honest, and transparent manner.
-        Every donation of ₹600 is treated as one equal entry, and all entries have the same chance of winning, with no preference or bias of any kind.<br>
-    <h2>Winner Announcement</h2>
-         The winner’s details will be announced publicly on the same banner displayed on this website once the giveaway is completed,<br> ensuring full transparency for all participants.
-</section>
-
-<div class="modal" id="imgModal" onclick="closeModal()">
-  <span class="modal-close">&times;</span>
-  <img id="modalImg">
-</div>
-
-<div class="fireworks" id="fireworks"></div>
-<div class="admin-btn" onclick="adminUpdate()"></div>
-
-<script>
-const ADMIN_PIN="2602";
-let totalSlots=6500,slotsLeft=6500;
-const milestones=[5000,3000,1000,0],hit=new Set();
-
-function updateProgress(){
-  progressFill.style.width=(slotsLeft/totalSlots)*100+"%";
-  progressText.innerText=`Slots left: ${slotsLeft} / ${totalSlots}`;
-  if(milestones.includes(slotsLeft)&&!hit.has(slotsLeft)){hit.add(slotsLeft);fire();}
-}
-updateProgress();
-
-/* COUNTDOWN */
-const end=new Date("2026-01-05T12:00:00");
-setInterval(()=>{
-  const d=end-new Date();
-  if(d<=0){countdown.innerText="⏰ Gateway Closed";return;}
-  countdown.innerText=`⏳ Ends in ${Math.floor(d/86400000)}d ${Math.floor(d%86400000/3600000)}h ${Math.floor(d%3600000/60000)}m ${Math.floor(d%60000/1000)}s`;
-},1000);
-
-/* FIREWORKS */
-function fire(){
-  for(let i=0;i<80;i++){
-    const c=document.createElement("div");
-    c.className="confetti";
-    c.style.left=Math.random()*100+"vw";
-    c.style.background=`hsl(${Math.random()*360},100%,60%)`;
-    fireworks.appendChild(c);
-    setTimeout(()=>c.remove(),3000);
-  }
-}
-
-/* IMAGE MODAL */
-document.querySelectorAll(".image-box").forEach(img=>{
-  img.onclick=()=>{modalImg.src=img.src;imgModal.style.display="flex";}
-});
-function closeModal(){imgModal.style.display="none";}
-
-/* ADMIN */
-function adminUpdate(){
-  if(prompt("PIN")!==ADMIN_PIN)return;
-  slotsLeft=parseInt(prompt("Slots left:",slotsLeft));
-  updateProgress();
-}
-
-/* LINKS */
-function openWhatsApp(){window.open("https://wa.me/919003979426");}
-function openWebsite(){window.open("https://2-moon-automotive.netlify.app/");}
-function shareSite(){window.open("https://wa.me/?text=https://r15v3-give-away.netlify.app/");}
-</script>
-
+    document.getElementById("notifyEmail").addEventListener("click", () => {
+      if (!reminderMessage.value) {
+        reminderStatus.textContent = "Select a service to generate a reminder.";
+        return;
+      }
+      const message = encodeURIComponent(reminderMessage.value);
+      window.location.href = `mailto:admin@community.com?subject=Service%20Booking&body=${message}`;
+      reminderStatus.textContent = "Email reminder draft opened.";
+    });
+  </script>
 </body>
 </html>
-
-
-
-
